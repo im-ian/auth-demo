@@ -1,11 +1,6 @@
 import { forwardRef } from "react";
 import classNames from "classnames";
-
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "danger" | "ghost";
-  size?: "sm" | "md" | "lg";
-  loading?: boolean;
-}
+import { ButtonProps } from "./types";
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
