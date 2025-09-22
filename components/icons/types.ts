@@ -1,5 +1,7 @@
+import type { Size } from "../../@types/theme";
+
 export interface IconProps extends React.SVGProps<SVGSVGElement> {
   name: string;
-  size?: "sm" | "md" | "lg";
+  size?: Size;
   color?: "default" | "brand";
 }

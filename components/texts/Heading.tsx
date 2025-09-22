@@ -1,23 +1,16 @@
 import { forwardRef } from "react";
 import classNames from "classnames";
 import type { HeadingProps } from "./types";
-import { headingSizes, headingColors } from "./theme";
+import { headingSizes } from "./theme";
 
 const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(
-  (
-    { children, level = "h1", variant = "default", className = "", ...props },
-    ref
-  ) => {
+  ({ children, level = "h1", className = "", ...props }, ref) => {
     const Component = level;
 
     return (
       <Component
         ref={ref}
-        className={classNames(
-          headingSizes[level],
-          headingColors[variant],
-          className
-        )}
+        className={classNames(headingSizes[level], className)}
         {...props}
       >
         {children}

@@ -1,15 +1,16 @@
 import { forwardRef } from "react";
 import classNames from "classnames";
 import { IconProps } from "./types";
+import type { Size } from "../../@types/theme";
+
+const sizeClasses: Record<Size, string> = {
+  sm: "w-4 h-4",
+  md: "w-6 h-6",
+  lg: "w-8 h-8",
+};
 
 const Icon = forwardRef<SVGSVGElement, IconProps>(
   ({ name, size = "md", color = "default", className = "", ...props }, ref) => {
-    const sizeClasses = {
-      sm: "w-4 h-4",
-      md: "w-6 h-6",
-      lg: "w-8 h-8",
-    };
-
     const colorClasses = {
       default: "text-current",
       brand: "text-[#03C75A]",
