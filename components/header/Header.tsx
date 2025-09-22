@@ -1,4 +1,4 @@
-import { HeaderProps } from "./types";
+import type { HeaderProps } from "./types";
 import Button from "../buttons/Button";
 
 export default function Header({ user, onLogin, onLogout }: HeaderProps) {

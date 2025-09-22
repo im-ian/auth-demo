@@ -31,4 +31,5 @@ export const headingColors = {
   default: "text-gray-900",
   primary: "text-blue-900",
   secondary: "text-gray-700",
+  danger: "text-red-900",
 };

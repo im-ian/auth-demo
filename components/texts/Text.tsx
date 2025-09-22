@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import classNames from "classnames";
-import { TextProps } from "./types";
+import type { TextProps } from "./types";
 import { sizes, textColors } from "./theme";
 
 const Text = forwardRef<HTMLSpanElement, TextProps>(

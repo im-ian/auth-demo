@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import classNames from "classnames";
-import { LinkProps } from "./types";
+import type { LinkProps } from "./types";
 import { sizes, linkColors } from "./theme";
 
 const Link = forwardRef<HTMLAnchorElement, LinkProps>(

@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import classNames from "classnames";
-import { HeadingProps } from "./types";
+import type { HeadingProps } from "./types";
 import { headingSizes, headingColors } from "./theme";
 
 const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(
