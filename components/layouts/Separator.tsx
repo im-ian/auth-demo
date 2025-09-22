@@ -14,6 +14,12 @@ const separatorSizes: Record<Size, string> = {
 
 export default function Separator({ className, size = "md" }: SeparatorProps) {
   return (
-    <div className={classNames("w-full", className, separatorSizes[size])} />
+    <div
+      className={classNames(
+        "bg-gray-200 w-full",
+        className,
+        separatorSizes[size]
+      )}
+    />
   );
 }
