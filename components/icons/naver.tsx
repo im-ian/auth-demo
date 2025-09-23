@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
-import classNames from "classnames";
 import { IconProps } from "./types";
 import type { Size } from "../../@types/theme";
+import { cn } from "../../lib/utils";
 
 const sizeClasses: Record<Size, string> = {
   sm: "w-4 h-4",
@@ -21,7 +21,7 @@ const Icon = forwardRef<SVGSVGElement, IconProps>(
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"
         fill="currentColor"
-        className={classNames(sizeClasses[size], color, className)}
+        className={cn(sizeClasses[size], color, className)}
         {...props}
       >
         <path d="M16.273 12.845 7.376 0H0v24h7.726V11.156L16.624 24H24V0h-7.727v12.845Z" />

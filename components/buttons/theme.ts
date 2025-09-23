@@ -1,6 +1,6 @@
 import type { DefaultVariant, Size } from "../../@types/theme";
 
-type ButtonVariant = DefaultVariant | "ghost";
+type ButtonVariant = DefaultVariant | "ghost" | "outline";
 
 export const buttonVariants: Record<ButtonVariant, string> = {
   primary: "bg-blue-600 hover:bg-blue-700 text-white focus:ring-blue-500",
@@ -9,6 +9,8 @@ export const buttonVariants: Record<ButtonVariant, string> = {
   danger: "bg-red-600 hover:bg-red-700 text-white focus:ring-red-500",
   ghost:
     "bg-transparent hover:bg-gray-100 text-gray-700 border-gray-300 focus:ring-gray-500 shadow-none",
+  outline:
+    "bg-transparent hover:bg-gray-50 text-gray-700 border border-gray-300 focus:ring-gray-500",
 };
 
 export const buttonSizes: Record<Size, string> = {

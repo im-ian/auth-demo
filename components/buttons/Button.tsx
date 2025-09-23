@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
-import classNames from "classnames";
 import type { ButtonProps } from "./types";
 import { buttonVariants, buttonSizes } from "./theme";
+import { cn } from "@/lib/utils";
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -22,7 +22,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         disabled={isDisabled}
-        className={classNames(
+        className={cn(
           "font-semibold rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer",
           buttonVariants[variant],
           buttonSizes[size],

@@ -1,5 +1,5 @@
 import type { Size } from "../../@types/theme";
-import classNames from "classnames";
+import { cn } from "../../lib/utils";
 
 interface SeparatorProps {
   className?: string;
@@ -15,11 +15,7 @@ const separatorSizes: Record<Size, string> = {
 export default function Separator({ className, size = "md" }: SeparatorProps) {
   return (
     <div
-      className={classNames(
-        "bg-gray-200 w-full",
-        className,
-        separatorSizes[size]
-      )}
+      className={cn("bg-gray-200 w-full", className, separatorSizes[size])}
     />
   );
 }

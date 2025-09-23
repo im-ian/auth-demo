@@ -1,12 +1,12 @@
 import { forwardRef } from "react";
-import classNames from "classnames";
+import { cn } from "../../lib/utils";
 import type { TextProps } from "./types";
 import { sizes } from "./theme";
 
 const Text = forwardRef<HTMLSpanElement, TextProps>(
   ({ children, className = "", size = "md", ...props }, ref) => {
     return (
-      <span ref={ref} className={classNames(sizes[size], className)} {...props}>
+      <span ref={ref} className={cn(sizes[size], className)} {...props}>
         {children}
       </span>
     );
