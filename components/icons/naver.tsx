@@ -1,13 +1,7 @@
 import { forwardRef } from "react";
-import { IconProps } from "./types";
-import type { Size } from "../../@types/theme";
+import type { IconProps } from "./types";
 import { cn } from "../../lib/utils";
-
-const sizeClasses: Record<Size, string> = {
-  sm: "w-4 h-4",
-  md: "w-6 h-6",
-  lg: "w-8 h-8",
-};
+import { sizeClasses } from "./theme";
 
 const Icon = forwardRef<SVGSVGElement, IconProps>(
   (
@@ -29,5 +23,7 @@ const Icon = forwardRef<SVGSVGElement, IconProps>(
     );
   }
 );
+
+Icon.displayName = "NaverIcon";
 
 export default Icon;
