@@ -81,12 +81,12 @@ export default function LoginPage() {
           )}
 
           <Input
-            label="아이디"
-            name="username"
+            label="이메일"
+            name="email"
             type="text"
             value={formData.username}
             onChange={handleInputChange}
-            placeholder="아이디를 입력하세요"
+            placeholder="이메일을 입력하세요"
             required
           />
 
