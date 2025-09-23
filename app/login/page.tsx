@@ -4,9 +4,10 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Input from "../../components/inputs/Input";
 import Button from "../../components/buttons/Button";
-import { NaverIcon } from "../../components/icons";
+import { NaverIcon, KakaoIcon } from "../../components/icons";
 import { Heading, Text } from "../../components/texts";
 import Separator from "../../components/layouts/Separator";
+import IconButton from "@/components/buttons/IconButton";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -67,9 +68,9 @@ export default function LoginPage() {
           </Text>
         </div>
 
-        <div className="flex justify-center gap-6 py-4">
-          <NaverIcon name="naver" size="sm" />
-          <NaverIcon name="naver" size="sm" />
+        <div className="flex justify-center gap-4 py-4">
+          <IconButton icon={<NaverIcon name="naver" size="sm" />} />
+          <IconButton icon={<KakaoIcon name="kakao" size="sm" />} />
         </div>
 
         <form onSubmit={handleClickLogin} className="space-y-6">
