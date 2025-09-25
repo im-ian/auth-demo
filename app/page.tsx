@@ -48,7 +48,7 @@ export default function Home() {
 
       <main className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
         <div className="text-center space-y-8 p-8">
-          <Heading className="mb-2" level="h1">
+          <Heading className="mb-2 text-blue-700" level="h1">
             메인 페이지
           </Heading>
           <div className="text-md md:text-lg text-gray-600">
