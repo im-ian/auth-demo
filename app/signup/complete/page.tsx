@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Button from "../../../components/buttons/Button";
 import { Heading, Text } from "../../../components/texts";
@@ -15,11 +15,39 @@ export default function SignupCompletePage() {
     kakao: false,
   });
 
-  const handleSnsConnect = (sns: "naver" | "kakao") => {
-    setConnectedSns((prev) => ({
-      ...prev,
-      [sns]: !prev[sns],
-    }));
+  // receive message from OAuth popup
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      if (event.origin !== window.location.origin) return;
+
+      if (
+        event.data.type === "NAVER_OAUTH_SUCCESS" &&
+        event.data.status === "success"
+      ) {
+        setConnectedSns((prev) => ({ ...prev, naver: true }));
+      }
+
+      if (
+        event.data.type === "KAKAO_OAUTH_SUCCESS" &&
+        event.data.status === "success"
+      ) {
+        setConnectedSns((prev) => ({ ...prev, kakao: true }));
+      }
+    };
+
+    window.addEventListener("message", handleMessage);
+
+    return () => {
+      window.removeEventListener("message", handleMessage);
+    };
+  }, []);
+
+  const handleNaverConnect = () => {
+    window.open("/api/auth/naver/login", "_blank");
+  };
+
+  const handleKakaoConnect = () => {
+    window.open("/api/auth/kakao/login", "_blank");
   };
 
   const handleComplete = () => {
@@ -61,31 +89,33 @@ export default function SignupCompletePage() {
           <div className="space-y-4">
             <Button
               className="w-full"
-              variant="outline"
+              variant={connectedSns.naver ? "secondary" : "outline"}
               size="sm"
-              onClick={() => handleSnsConnect("naver")}
+              onClick={connectedSns.naver ? undefined : handleNaverConnect}
+              disabled={connectedSns.naver}
             >
               <div className="flex items-center gap-3 p-2">
                 <NaverIcon name="naver" size="sm" />
-                네이버 계정 연결
+                {connectedSns.naver ? "네이버 계정 연결됨" : "네이버 계정 연결"}
               </div>
             </Button>
 
             <Button
               className="w-full"
-              variant="outline"
+              variant={connectedSns.kakao ? "secondary" : "outline"}
               size="sm"
-              onClick={() => handleSnsConnect("kakao")}
+              onClick={connectedSns.kakao ? undefined : handleKakaoConnect}
+              disabled={connectedSns.kakao}
             >
               <div className="flex items-center gap-3 p-2">
                 <KakaoIcon name="kakao" size="sm" />
-                카카오 계정 연결
+                {connectedSns.kakao ? "카카오 계정 연결됨" : "카카오 계정 연결"}
               </div>
             </Button>
           </div>
         </FadeIn>
 
-        <FadeIn condition={true} delay={900}>
+        <FadeIn condition={true} delay={connectedSns.naver ? 1200 : 900}>
           <Spacer size="md" />
 
           <Button
