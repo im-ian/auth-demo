@@ -13,7 +13,7 @@ import { FadeIn } from "@/components/animations";
 export default function LoginPage() {
   const router = useRouter();
   const [formData, setFormData] = useState({
-    username: "",
+    id: "",
     password: "",
   });
   const [loading, setLoading] = useState(false);
@@ -33,17 +33,14 @@ export default function LoginPage() {
     setLoading(true);
     setError("");
 
-    if (!formData.username || !formData.password) {
+    if (!formData.id || !formData.password) {
       setError("아이디와 비밀번호를 입력해주세요.");
       setLoading(false);
       return;
     }
 
     setTimeout(() => {
-      localStorage.setItem(
-        "user",
-        JSON.stringify({ username: formData.username })
-      );
+      localStorage.setItem("user", JSON.stringify({ id: formData.id }));
       setLoading(false);
       router.push("/");
     }, 1000);
@@ -77,12 +74,12 @@ export default function LoginPage() {
           )}
 
           <Input
-            label="이메일"
-            name="email"
+            label="아이디"
+            name="id"
             type="text"
-            value={formData.username}
+            value={formData.id}
             onChange={handleInputChange}
-            placeholder="이메일을 입력하세요"
+            placeholder="아이디를 입력하세요"
             required
           />
 
