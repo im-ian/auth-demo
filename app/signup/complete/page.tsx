@@ -51,7 +51,6 @@ export default function SignupCompletePage() {
   };
 
   const handleComplete = () => {
-    console.log("SNS 연결 상태:", connectedSns);
     router.push("/login");
   };
 
