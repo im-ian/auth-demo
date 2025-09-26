@@ -2,6 +2,7 @@ import type { Size } from "../../@types/theme";
 import type { HeadingLevel } from "./types";
 
 export const sizes: Record<Size, string> = {
+  xs: "text-xs md:text-sm",
   sm: "text-sm md:text-base",
   md: "text-base md:text-lg",
   lg: "text-lg md:text-xl",
