@@ -85,7 +85,7 @@ export default function SignupCompletePage() {
               SNS 계정을 연결하여 더 편리하게 이용할 수 있어요.
             </Text>
             <Text className="text-gray-400" size="sm">
-              나중에 마이페이지에서도 연동할 수 있어요.
+              나중에 마이페이지에서도 연동할 수 있어요. (미구현)
             </Text>
           </div>
         </FadeIn>
