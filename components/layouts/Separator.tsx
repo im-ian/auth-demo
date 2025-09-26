@@ -8,6 +8,7 @@ interface SeparatorProps {
 }
 
 const separatorSizes: Record<Size, string> = {
+  xs: "h-px",
   sm: "h-0.5",
   md: "h-1",
   lg: "h-2",
