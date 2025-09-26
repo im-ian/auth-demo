@@ -57,6 +57,18 @@ export default function NaverOAuthPage() {
           console.log("네이버 프로필 정보:", result.profile);
           setStatus("success");
           setMessage("네이버 계정이 연결되었습니다!");
+
+          if (window.opener) {
+            window.opener.postMessage(
+              {
+                type: "NAVER_OAUTH_SUCCESS",
+                status: "success",
+                message: "네이버 계정이 연결되었습니다!",
+                profile: result.profile,
+              },
+              window.location.origin
+            );
+          }
         } else {
           setStatus("error");
           setMessage("네이버 계정 연결에 실패했습니다.");
@@ -72,16 +84,7 @@ export default function NaverOAuthPage() {
   }, [searchParams]);
 
   const handleClose = () => {
-    // send message to parent window and close the window
     if (window.opener) {
-      window.opener.postMessage(
-        {
-          type: "NAVER_OAUTH_SUCCESS",
-          status,
-          message,
-        },
-        window.location.origin
-      );
       window.close();
     } else {
       // if opened in new tab, redirect to main page
