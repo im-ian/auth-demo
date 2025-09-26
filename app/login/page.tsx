@@ -8,10 +8,11 @@ import { NaverIcon, KakaoIcon } from "../../components/icons";
 import { Heading, Link, Text } from "../../components/texts";
 import Separator from "../../components/layouts/Separator";
 import IconButton from "@/components/buttons/IconButton";
-import { FadeIn } from "@/components/animations";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function LoginPage() {
   const router = useRouter();
+  const { login } = useAuth();
   const [formData, setFormData] = useState({
     id: "",
     password: "",
@@ -44,14 +45,6 @@ export default function LoginPage() {
       setLoading(false);
       router.push("/");
     }, 1000);
-  };
-
-  const handleClickSignUp = () => {
-    router.push("/signup");
-  };
-
-  const handleClickBackToHome = () => {
-    router.push("/");
   };
 
   return (

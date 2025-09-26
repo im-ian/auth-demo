@@ -1,50 +1,25 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Header } from "../components/header";
 import { Heading, Text } from "../components/texts";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Home() {
   const router = useRouter();
-  const [user, setUser] = useState<{ username: string } | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const userData = localStorage.getItem("user");
-
-    if (userData) {
-      try {
-        setUser(JSON.parse(userData));
-      } catch (error) {
-        console.error("User data parsing error:", error);
-        localStorage.removeItem("user");
-        setLoading(false);
-      }
-    }
-    setLoading(false);
-  }, []);
+  const { user, isLoggedIn, logout } = useAuth();
 
   const handleLogin = () => {
     router.push("/login");
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
-    setUser(null);
+    logout();
   };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header user={user} onLogin={handleLogin} onLogout={handleLogout} />
+      <Header onLogin={handleLogin} onLogout={handleLogout} />
 
       <main className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
         <div className="text-center space-y-8 p-8">
@@ -52,8 +27,18 @@ export default function Home() {
             메인 페이지
           </Heading>
           <div className="text-md md:text-lg text-gray-600">
-            {user ? (
-              <Text>로그인에 성공했습니다!</Text>
+            {isLoggedIn ? (
+              <div className="space-y-2">
+                <Text>안녕하세요, {user?.name || user?.email}님!</Text>
+                {(user?.naverId || user?.kakaoId) && (
+                  <div className="text-sm text-gray-500">
+                    연결된 계정:{" "}
+                    {[user.naverId && "네이버", user.kakaoId && "카카오"]
+                      .filter(Boolean)
+                      .join(", ")}
+                  </div>
+                )}
+              </div>
             ) : (
               <Text>로그인하여 더 많은 기능을 이용해보세요.</Text>
             )}

@@ -7,9 +7,11 @@ import { Heading, Text } from "../../../components/texts";
 import { NaverIcon, KakaoIcon, CheckIcon } from "../../../components/icons";
 import { FadeIn } from "../../../components/animations";
 import { Spacer } from "../../../components/layouts";
+import { useAuth } from "../../../contexts/AuthContext";
 
 export default function SignupCompletePage() {
   const router = useRouter();
+  const { user, updateSnsConnection } = useAuth();
   const [connectedSns, setConnectedSns] = useState({
     naver: false,
     kakao: false,
@@ -25,6 +27,9 @@ export default function SignupCompletePage() {
         event.data.status === "success"
       ) {
         setConnectedSns((prev) => ({ ...prev, naver: true }));
+        if (event.data.profile?.response?.id) {
+          updateSnsConnection("naver", event.data.profile.response.id);
+        }
       }
 
       if (
@@ -32,6 +37,9 @@ export default function SignupCompletePage() {
         event.data.status === "success"
       ) {
         setConnectedSns((prev) => ({ ...prev, kakao: true }));
+        if (event.data.profile?.id) {
+          updateSnsConnection("kakao", event.data.profile.id.toString());
+        }
       }
     };
 
