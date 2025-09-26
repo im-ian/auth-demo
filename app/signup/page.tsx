@@ -8,6 +8,7 @@ import { Step1, Step2 } from "../../components/signup";
 import type { SignupFormData } from "../../components/signup";
 import { step1Schema, step2Schema } from "../../components/signup/schemas";
 import { Stepper } from "../../components/disclosures";
+import { useAuth } from "../../contexts/AuthContext";
 
 const MAX_STEP = 2;
 
@@ -16,6 +17,7 @@ export default function SignupPage() {
   const [currentStep, setCurrentStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const { login } = useAuth();
 
   const [formData, setFormData] = useState<SignupFormData>({
     // Step 1
@@ -127,6 +129,12 @@ export default function SignupPage() {
 
     setTimeout(() => {
       console.log("회원가입 데이터:", formData);
+
+      login({
+        id: formData.id,
+        name: formData.id,
+        email: formData.email,
+      });
       setLoading(false);
 
       router.push("/signup/complete");
