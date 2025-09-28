@@ -20,8 +20,8 @@ interface User {
   name: string;
   email: string;
   profileImage?: string;
-  naverId?: string;
-  kakaoId?: string;
+  naverId: string | null;
+  kakaoId: string | null;
 }
 
 interface AuthContextType {

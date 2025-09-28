@@ -134,6 +134,8 @@ export default function SignupPage() {
         id: formData.id,
         name: formData.id,
         email: formData.email,
+        naverId: null,
+        kakaoId: null,
       });
       setLoading(false);
 
