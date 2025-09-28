@@ -7,7 +7,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 export default function Home() {
   const router = useRouter();
-  const { user, isLoggedIn, logout } = useAuth();
+  const { user, logout } = useAuth();
 
   const handleLogin = () => {
     router.push("/login");
@@ -27,7 +27,7 @@ export default function Home() {
             메인 페이지
           </Heading>
           <div className="text-md md:text-lg text-gray-600">
-            {isLoggedIn ? (
+            {user ? (
               <div className="space-y-2">
                 <Text>안녕하세요, {user?.name || user?.email}님!</Text>
                 {(user?.naverId || user?.kakaoId) && (

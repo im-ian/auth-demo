@@ -28,7 +28,6 @@ interface User {
 
 interface AuthContextType {
   user: User | null;
-  isLoggedIn: boolean;
   login: (userData: User) => void;
   logout: () => void;
   updateSnsConnection: (provider: SnsProvider, id: string | number) => void;
@@ -127,7 +126,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const value: AuthContextType = {
     user,
-    isLoggedIn: !!user,
     login,
     logout,
     updateSnsConnection,
