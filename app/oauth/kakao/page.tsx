@@ -8,11 +8,12 @@ import { FadeIn } from "../../../components/animations";
 import Button from "../../../components/buttons/Button";
 import { Spacer } from "../../../components/layouts";
 import { useAuth } from "../../../contexts/AuthContext";
+import { findUserBySnsId } from "../../../lib/demo";
 
 export default function KakaoOAuthPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { updateSnsConnection } = useAuth();
+  const { updateSnsConnection, login } = useAuth();
   const [status, setStatus] = useState<"loading" | "success" | "error">(
     "loading"
   );
@@ -57,12 +58,21 @@ export default function KakaoOAuthPage() {
 
         if (result.success) {
           console.log("카카오 프로필 정보:", result.profile);
-          setStatus("success");
-          setMessage("카카오 계정이 연결되었습니다!");
 
-          // AuthContext를 통해 SNS 연결 업데이트
           if (result.profile?.id) {
-            updateSnsConnection("kakao", result.profile.id);
+            const snsId = result.profile.id.toString();
+
+            const existingUser = findUserBySnsId("kakao", snsId);
+
+            if (existingUser) {
+              login(existingUser);
+              setStatus("success");
+              setMessage("카카오 계정으로 로그인되었습니다!");
+            } else {
+              updateSnsConnection("kakao", snsId);
+              setStatus("success");
+              setMessage("카카오 계정이 연결되었습니다!");
+            }
           }
         } else {
           setStatus("error");

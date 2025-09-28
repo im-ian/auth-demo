@@ -57,6 +57,14 @@ export default function LoginPage() {
     }
   };
 
+  const handleNaverLogin = () => {
+    window.open("/api/auth/naver/login", "_blank");
+  };
+
+  const handleKakaoLogin = () => {
+    window.open("/api/auth/kakao/login", "_blank");
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-white">
       <div className="w-full max-w-md space-y-6 p-8">
@@ -126,8 +134,14 @@ export default function LoginPage() {
             소셜 계정으로 로그인으로 간편하게 시작해보세요.
           </Text>
           <div className="flex justify-center gap-4">
-            <IconButton icon={<NaverIcon name="naver" size="sm" />} />
-            <IconButton icon={<KakaoIcon name="kakao" size="sm" />} />
+            <IconButton
+              icon={<NaverIcon name="naver" size="sm" />}
+              onClick={handleNaverLogin}
+            />
+            <IconButton
+              icon={<KakaoIcon name="kakao" size="sm" />}
+              onClick={handleKakaoLogin}
+            />
           </div>
         </div>
       </div>

@@ -7,7 +7,7 @@ import {
   useEffect,
   ReactNode,
 } from "react";
-import { createDemoUsers } from "../lib/demo";
+import { createDemoUsers, updateUser } from "../lib/demo";
 import { User, SnsProvider } from "../types/user";
 
 const SNS_PROVIDER_KEY = {
@@ -108,7 +108,17 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         [SNS_PROVIDER_KEY[provider]]: id,
       };
 
+      // localStorage의 user 키 업데이트
       localStorage.setItem("user", JSON.stringify(updatedUser));
+
+      // userList에서도 해당 사용자 정보 업데이트
+      const updateSuccess = updateUser(currentUser.id, {
+        [SNS_PROVIDER_KEY[provider]]: id,
+      });
+
+      if (!updateSuccess) {
+        console.error("Failed to update user in userList");
+      }
 
       if (user) {
         setUser(updatedUser);

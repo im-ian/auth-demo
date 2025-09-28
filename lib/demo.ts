@@ -135,6 +135,35 @@ export const deleteUser = (userId: string): boolean => {
   }
 };
 
+// SNS ID로 사용자 찾기
+export const findUserBySnsId = (
+  provider: "naver" | "kakao",
+  snsId: string | number
+): User | null => {
+  try {
+    const userList = getUserList();
+    const foundUser = userList.find((user: UserWithPassword) => {
+      if (provider === "naver") {
+        return user.naverId === snsId;
+      } else if (provider === "kakao") {
+        return user.kakaoId?.toString() === snsId;
+      }
+      return false;
+    });
+
+    if (foundUser) {
+      // 비밀번호를 제외한 사용자 정보 반환
+      const { password: _, ...userWithoutPassword } = foundUser;
+      return userWithoutPassword;
+    }
+
+    return null;
+  } catch (error) {
+    console.error("Failed to find user by SNS ID:", error);
+    return null;
+  }
+};
+
 // 데모용 초기 사용자 데이터 생성
 export const createDemoUsers = (): void => {
   const existingUsers = getUserList();
