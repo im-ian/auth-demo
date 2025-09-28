@@ -7,10 +7,12 @@ import { CheckIcon } from "../../../components/icons";
 import { FadeIn } from "../../../components/animations";
 import Button from "../../../components/buttons/Button";
 import { Spacer } from "../../../components/layouts";
+import { useAuth } from "../../../contexts/AuthContext";
 
 export default function NaverOAuthPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { updateSnsConnection } = useAuth();
   const [status, setStatus] = useState<"loading" | "success" | "error">(
     "loading"
   );
@@ -58,16 +60,8 @@ export default function NaverOAuthPage() {
           setStatus("success");
           setMessage("네이버 계정이 연결되었습니다!");
 
-          if (window.opener) {
-            window.opener.postMessage(
-              {
-                type: "NAVER_OAUTH_SUCCESS",
-                status: "success",
-                message: "네이버 계정이 연결되었습니다!",
-                profile: result.profile,
-              },
-              window.location.origin
-            );
+          if (result.profile?.response?.id) {
+            updateSnsConnection("naver", result.profile.response.id);
           }
         } else {
           setStatus("error");

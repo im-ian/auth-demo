@@ -17,38 +17,18 @@ export default function SignupCompletePage() {
     kakao: false,
   });
 
-  // receive message from OAuth popup
   useEffect(() => {
-    const handleMessage = (event: MessageEvent) => {
-      if (event.origin !== window.location.origin) return;
-
-      if (
-        event.data.type === "NAVER_OAUTH_SUCCESS" &&
-        event.data.status === "success"
-      ) {
-        setConnectedSns((prev) => ({ ...prev, naver: true }));
-        if (event.data.profile?.response?.id) {
-          updateSnsConnection("naver", event.data.profile.response.id);
-        }
-      }
-
-      if (
-        event.data.type === "KAKAO_OAUTH_SUCCESS" &&
-        event.data.status === "success"
-      ) {
-        setConnectedSns((prev) => ({ ...prev, kakao: true }));
-        if (event.data.profile?.id) {
-          updateSnsConnection("kakao", event.data.profile.id.toString());
-        }
+    const checkSnsConnection = () => {
+      if (user) {
+        setConnectedSns({
+          naver: Boolean(user.naverId),
+          kakao: Boolean(user.kakaoId),
+        });
       }
     };
 
-    window.addEventListener("message", handleMessage);
-
-    return () => {
-      window.removeEventListener("message", handleMessage);
-    };
-  }, []);
+    checkSnsConnection();
+  }, [user]);
 
   const handleNaverConnect = () => {
     window.open("/api/auth/naver/login", "_blank");
