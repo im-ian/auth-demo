@@ -9,6 +9,7 @@ import Button from "../../../components/buttons/Button";
 import { Spacer } from "../../../components/layouts";
 import { useAuth } from "../../../contexts/AuthContext";
 import { findUserBySnsId } from "../../../lib/demo";
+import { useTimer } from "../../../hooks";
 
 export default function KakaoOAuthPage() {
   const router = useRouter();
@@ -18,6 +19,20 @@ export default function KakaoOAuthPage() {
     "loading"
   );
   const [message, setMessage] = useState("");
+
+  const handleClose = () => {
+    if (window.opener) {
+      window.close();
+    } else {
+      // if opened in new tab, redirect to main page
+      router.push("/");
+    }
+  };
+
+  const { timeLeft, start: startTimer } = useTimer({
+    initialTime: 5,
+    onComplete: handleClose,
+  });
 
   useEffect(() => {
     const handleOAuthCallback = async () => {
@@ -66,12 +81,13 @@ export default function KakaoOAuthPage() {
 
             if (existingUser) {
               login(existingUser);
-              setStatus("success");
-              setMessage("카카오 계정으로 로그인되었습니다!");
+              handleClose();
             } else {
               updateSnsConnection("kakao", snsId);
               setStatus("success");
               setMessage("카카오 계정이 연결되었습니다!");
+
+              startTimer();
             }
           }
         } else {
@@ -87,15 +103,6 @@ export default function KakaoOAuthPage() {
 
     handleOAuthCallback();
   }, [searchParams]);
-
-  const handleClose = () => {
-    if (window.opener) {
-      window.close();
-    } else {
-      // if opened in new tab, redirect to main page
-      router.push("/");
-    }
-  };
 
   const renderContent = () => {
     switch (status) {
@@ -130,6 +137,9 @@ export default function KakaoOAuthPage() {
               </Heading>
               <Text className="text-gray-600" size="md">
                 {message}
+              </Text>
+              <Text className="text-gray-500" size="sm">
+                이 화면은 {timeLeft}초 후 자동으로 닫힙니다.
               </Text>
             </div>
 
