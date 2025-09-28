@@ -39,7 +39,7 @@ export default function SignupCompletePage() {
   };
 
   const handleComplete = () => {
-    router.push("/login");
+    router.push("/");
   };
 
   return (
