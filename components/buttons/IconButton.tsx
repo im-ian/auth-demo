@@ -4,10 +4,7 @@ import Button from "./Button";
 import { cn } from "@/lib/utils";
 
 const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
-  (
-    { icon, variant = "outline", onClick, className = "", children, ...props },
-    ref
-  ) => {
+  ({ icon, variant = "outline", className = "", children, ...props }, ref) => {
     return (
       <Button
         ref={ref}
