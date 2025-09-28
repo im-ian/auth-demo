@@ -19,7 +19,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header onLogin={handleLogin} onLogout={handleLogout} />
+      <Header />
 
       <main className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
         <div className="text-center space-y-8 p-8">

@@ -1,7 +1,15 @@
-import type { HeaderProps } from "./types";
+import { useRouter } from "next/navigation";
+import { useAuth } from "../../contexts/AuthContext";
 import Button from "../buttons/Button";
 
-export default function Header({ user, onLogin, onLogout }: HeaderProps) {
+export default function Header() {
+  const router = useRouter();
+  const { user, logout } = useAuth();
+
+  const handleLogin = () => {
+    router.push("/login");
+  };
+
   return (
     <header className="bg-white shadow-sm border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -12,16 +20,11 @@ export default function Header({ user, onLogin, onLogout }: HeaderProps) {
 
           <div className="flex items-center space-x-4">
             {user ? (
-              <div className="flex items-center space-x-4">
-                <span className="text-sm text-gray-700">
-                  안녕하세요, {user.username}님!
-                </span>
-                <Button variant="secondary" size="sm" onClick={onLogout}>
-                  로그아웃
-                </Button>
-              </div>
+              <Button variant="secondary" size="sm" onClick={logout}>
+                로그아웃
+              </Button>
             ) : (
-              <Button variant="primary" size="sm" onClick={onLogin}>
+              <Button variant="primary" size="sm" onClick={handleLogin}>
                 로그인
               </Button>
             )}
