@@ -128,8 +128,6 @@ export default function SignupPage() {
     setLoading(true);
 
     setTimeout(() => {
-      console.log("회원가입 데이터:", formData);
-
       login({
         id: formData.id,
         name: formData.id,
