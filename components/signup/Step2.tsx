@@ -42,7 +42,7 @@ const Step2 = ({ formData, onInputChange, errors }: Step2Props) => {
 
       <FadeIn condition={!!formData.gender}>
         <Input
-          label="주소"
+          label="주소 (선택)"
           name="address"
           type="text"
           value={formData.address}
