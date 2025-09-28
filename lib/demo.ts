@@ -1,4 +1,5 @@
 // 데모용 사용자 관리 유틸리티입니다.
+// 데모를 위한 유틸리티 함수들은 Cursor 에디터를 통해 생성했습니다.
 
 import { User, UserWithPassword } from "../types/user";
 
