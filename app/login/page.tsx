@@ -9,6 +9,7 @@ import { Heading, Link, Text } from "../../components/texts";
 import Separator from "../../components/layouts/Separator";
 import IconButton from "@/components/buttons/IconButton";
 import { useAuth } from "../../contexts/AuthContext";
+import { validateLogin } from "../../lib/demo";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -40,11 +41,20 @@ export default function LoginPage() {
       return;
     }
 
-    setTimeout(() => {
-      localStorage.setItem("user", JSON.stringify({ id: formData.id }));
+    try {
+      const result = validateLogin(formData.id, formData.password);
+
+      if (result.success && result.user) {
+        login(result.user);
+        router.push("/");
+      } else {
+        setError(result.message || "로그인에 실패했습니다.");
+      }
+    } catch (error) {
+      setError("로그인 중 오류가 발생했습니다.");
+    } finally {
       setLoading(false);
-      router.push("/");
-    }, 1000);
+    }
   };
 
   return (
@@ -62,7 +72,9 @@ export default function LoginPage() {
         <form onSubmit={handleClickLogin} className="space-y-6">
           {error && (
             <div className="bg-red-50 border border-red-200 rounded-md p-4">
-              <Text className="text-sm text-red-600">{error}</Text>
+              <Text className="text-red-600" size="xs">
+                {error}
+              </Text>
             </div>
           )}
 

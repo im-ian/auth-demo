@@ -7,8 +7,8 @@ import {
   useEffect,
   ReactNode,
 } from "react";
-
-type SnsProvider = "naver" | "kakao";
+import { createDemoUsers } from "../lib/demo";
+import { User, SnsProvider } from "../types/user";
 
 const SNS_PROVIDER_KEY = {
   naver: "naverId",
@@ -16,15 +16,6 @@ const SNS_PROVIDER_KEY = {
 };
 
 const USER_UPDATE_EVENT = "user_update_event";
-
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  profileImage?: string;
-  naverId: string | null;
-  kakaoId: number | null;
-}
 
 interface AuthContextType {
   user: User | null;
@@ -41,6 +32,11 @@ interface AuthProviderProps {
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
+
+  // 데모용 초기 사용자 생성
+  useEffect(() => {
+    createDemoUsers();
+  }, []);
 
   useEffect(() => {
     const loadUserFromStorage = () => {

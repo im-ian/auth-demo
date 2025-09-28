@@ -9,6 +9,7 @@ import type { SignupFormData } from "../../components/signup";
 import { step1Schema, step2Schema } from "../../components/signup/schemas";
 import { Stepper } from "../../components/disclosures";
 import { useAuth } from "../../contexts/AuthContext";
+import { registerUser } from "../../lib/demo";
 
 const MAX_STEP = 2;
 
@@ -127,18 +128,32 @@ export default function SignupPage() {
 
     setLoading(true);
 
-    setTimeout(() => {
-      login({
+    try {
+      const result = registerUser({
         id: formData.id,
         name: formData.id,
         email: formData.email,
-        naverId: null,
-        kakaoId: null,
+        password: formData.password,
       });
-      setLoading(false);
 
-      router.push("/signup/complete");
-    }, 1000);
+      if (result.success) {
+        // 회원가입 성공 시 자동 로그인
+        login({
+          id: formData.id,
+          name: formData.id,
+          email: formData.email,
+          naverId: null,
+          kakaoId: null,
+        });
+        router.push("/signup/complete");
+      } else {
+        setErrors({ submit: result.message || "회원가입에 실패했습니다." });
+      }
+    } catch (error) {
+      setErrors({ submit: "회원가입 중 오류가 발생했습니다." });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -190,6 +205,14 @@ export default function SignupPage() {
             }
           })()}
         </div>
+
+        {errors.submit && (
+          <div className="text-center">
+            <Text className="text-red-500" size="sm">
+              {errors.submit}
+            </Text>
+          </div>
+        )}
 
         <div className="flex gap-3">
           {currentStep > 1 && (
