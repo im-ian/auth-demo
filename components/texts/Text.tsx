@@ -3,12 +3,12 @@ import { cn } from "../../lib/utils";
 import type { TextProps } from "./types";
 import { sizes } from "./theme";
 
-const Text = forwardRef<HTMLSpanElement, TextProps>(
+const Text = forwardRef<HTMLParagraphElement, TextProps>(
   ({ children, className = "", size = "md", ...props }, ref) => {
     return (
-      <span ref={ref} className={cn(sizes[size], className)} {...props}>
+      <p ref={ref} className={cn(sizes[size], className)} {...props}>
         {children}
-      </span>
+      </p>
     );
   }
 );
