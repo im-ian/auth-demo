@@ -11,7 +11,7 @@ import { useAuth } from "../../../contexts/AuthContext";
 
 export default function SignupCompletePage() {
   const router = useRouter();
-  const { user, updateSnsConnection } = useAuth();
+  const { user } = useAuth();
   const [connectedSns, setConnectedSns] = useState({
     naver: false,
     kakao: false,
