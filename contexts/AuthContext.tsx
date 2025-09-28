@@ -23,7 +23,7 @@ interface User {
   email: string;
   profileImage?: string;
   naverId: string | null;
-  kakaoId: string | null;
+  kakaoId: number | null;
 }
 
 interface AuthContextType {
@@ -31,7 +31,7 @@ interface AuthContextType {
   isLoggedIn: boolean;
   login: (userData: User) => void;
   logout: () => void;
-  updateSnsConnection: (provider: SnsProvider, id: string) => void;
+  updateSnsConnection: (provider: SnsProvider, id: string | number) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -97,7 +97,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     window.dispatchEvent(new Event(USER_UPDATE_EVENT));
   };
 
-  const updateSnsConnection = (provider: SnsProvider, id: string) => {
+  const updateSnsConnection = (provider: SnsProvider, id: string | number) => {
     // SNS 연결은 새로운 창이나 팝업에서 진행되기 때문에 context가 업데이트 되어 있지 않고,
     // context와 localStorage를 sync해주고 있기 때문에 localStorage에서 사용자 정보를 가져옴.
     const savedUser = localStorage.getItem("user");

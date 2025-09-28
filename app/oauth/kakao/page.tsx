@@ -62,7 +62,7 @@ export default function KakaoOAuthPage() {
 
           // AuthContext를 통해 SNS 연결 업데이트
           if (result.profile?.id) {
-            updateSnsConnection("kakao", result.profile.id.toString());
+            updateSnsConnection("kakao", result.profile.id);
           }
         } else {
           setStatus("error");
